@@ -15,6 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Python.Runtime.Codecs", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Codecs.Tests", "tests\Codecs.Tests.csproj", "{51EB80FB-59A6-4699-ACF0-F9BE6950E45B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CI", "CI", "{6CEA9133-ACDF-492D-BB26-21C356B4105E}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build+test.yml = .github\workflows\build+test.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
