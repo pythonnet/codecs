@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -7,15 +8,25 @@ namespace Python.Runtime.Codecs
     {
         public static void Ensure()
         {
-            if (PythonEngine.IsInitialized)
-                return;
-
             if (Path.IsPathFullyQualified(Runtime.PythonDLL)) return;
 
-            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && !Runtime.PythonDLL.StartsWith("lib"))
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                string dllExtension = RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? ".dylib" : ".so";
-                Runtime.PythonDLL = "lib" + Runtime.PythonDLL + dllExtension;
+                if (!Runtime.PythonDLL.StartsWith("lib"))
+                {
+                    string dllExtension = RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? ".dylib" : ".so";
+                    Runtime.PythonDLL = "lib" + Runtime.PythonDLL + dllExtension;
+                }
+            }
+            else
+            {
+                Runtime.PythonDLL += ".dll";
+            }
+
+            string pyHome = Environment.GetEnvironmentVariable("PYTHON_HOME");
+            if (!string.IsNullOrEmpty(pyHome))
+            {
+                PythonEngine.PythonHome = pyHome;
             }
         }
     }
