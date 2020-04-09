@@ -10,6 +10,12 @@ namespace Python.Runtime.Codecs
         {
             if (Path.IsPathFullyQualified(Runtime.PythonDLL)) return;
 
+            string pyVer = Environment.GetEnvironmentVariable("PYTHON_VERSION");
+            if (!string.IsNullOrEmpty(pyVer))
+            {
+                Runtime.PythonVersion = Version.Parse(pyVer);
+            }
+
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 if (!Runtime.PythonDLL.StartsWith("lib"))
