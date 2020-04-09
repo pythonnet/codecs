@@ -18,6 +18,7 @@ namespace Python.Runtime.Codecs
 
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
+                // work around Python.NET unstable issue with dll suffixes on *nix
                 if (!Runtime.PythonDLL.StartsWith("lib"))
                 {
                     string dllExtension = RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? ".dylib" : ".so";
@@ -55,7 +56,11 @@ namespace Python.Runtime.Codecs
                         Runtime.PythonDLL = dll;
                         if (string.IsNullOrEmpty(pyHome))
                         {
-                            pyHome = Path.GetDirectoryName(dll);
+                            pyHome = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
+                                // on Windows, paths is PYTHON_HOME/dll
+                                ? Path.GetDirectoryName(dll)
+                                // on *nix the path is HOME/lib/dll
+                                : Path.GetDirectoryName(Path.GetDirectoryName(dll));
                         }
 
                         break;
