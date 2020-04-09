@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace Python.Runtime.Codecs
 {
-    class TestsRuntimeConfig
+    partial class TestsRuntimeConfig
     {
         public static void Ensure()
         {
