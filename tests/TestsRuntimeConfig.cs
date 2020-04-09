@@ -30,6 +30,23 @@ namespace Python.Runtime.Codecs
             }
 
             string pyHome = Environment.GetEnvironmentVariable("PYTHON_HOME");
+            string[] paths = Environment.GetEnvironmentVariable("PATH")
+                .Split(Path.PathSeparator, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string pathDir in paths)
+            {
+                string dll = Path.Combine(pathDir, Runtime.PythonDLL);
+                if (File.Exists(dll))
+                {
+                    Runtime.PythonDLL = dll;
+                    if (string.IsNullOrEmpty(pyHome))
+                    {
+                        pyHome = Path.GetDirectoryName(dll);
+                    }
+                    break;
+                }
+            }
+
+
             if (!string.IsNullOrEmpty(pyHome))
             {
                 PythonEngine.PythonHome = pyHome;
