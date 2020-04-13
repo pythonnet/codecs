@@ -28,3 +28,5 @@ jobs:
       run: dotnet build --configuration Release
     - name: Test
       run: dotnet test --configuration Release
+      env:
+        PYTHON_VERSION: ${{ matrix.python-version }}
