@@ -8,6 +8,7 @@ namespace Python.Runtime.Codecs
         [SetUp]
         public void SetUp()
         {
+            TestsRuntimeConfig.Ensure();
             PythonEngine.Initialize();
         }
 
