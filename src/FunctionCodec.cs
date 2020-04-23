@@ -102,7 +102,7 @@ except:
                 using (Py.GIL())
                 {
                     var pyResult = pyAction.Invoke(pyArgs);
-                    return pyResult.As<object>();
+                    return pyResult.AsManagedObject(typeof(object));
                 }
             };
             return (object)func;
@@ -123,7 +123,7 @@ except:
                 using (Py.GIL())
                 {
                     var pyResult = pyAction.Invoke(pyArgs);
-                    return pyResult.As<object>();
+                    return pyResult.AsManagedObject(typeof(object));
                 }
             };
             return (object)func;
